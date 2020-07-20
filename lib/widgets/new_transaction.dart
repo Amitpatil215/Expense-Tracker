@@ -1,12 +1,25 @@
 import 'package:flutter/material.dart';
 
-class NewTransaction extends StatelessWidget {
-  final titleController = TextEditingController();
-  final amountController = TextEditingController();
+//this must be stateful (even if we are not calling setState((){}) as it is more about data than UI )
+// otherwise we are unable to input in TextField as our data gets lost
+//this happens cause when flutter checks internally to stateless widgets and it finds data get changed then
+// we loose our imputed data
 
+class NewTransaction extends StatefulWidget {
+  //for receiving data from outside to class we construct constructor here not in _NewTransactionState class as
+  //it is constructed using createState()
   final Function addTransactionButton;
 
   NewTransaction(this.addTransactionButton);
+
+  @override
+  _NewTransactionState createState() => _NewTransactionState();
+}
+
+class _NewTransactionState extends State<NewTransaction> {
+  final titleController = TextEditingController();
+
+  final amountController = TextEditingController();
 
   void submitButtonPressed() {
     final enteredTitle = titleController.text;
@@ -14,7 +27,16 @@ class NewTransaction extends StatelessWidget {
     if (enteredTitle.isEmpty || enteredAmount <= 0) {
       return;
     }
-    addTransactionButton(enteredTitle, enteredAmount);
+
+    //widget. is added to use method in state class (_NewTransactionState) from widget class (NewTransaction)
+    //and of course it is only available in state class
+    widget.addTransactionButton(
+      enteredTitle,
+      enteredAmount,
+    );
+
+    //for closing model sheet once we pressed "Add Transaction" button
+    Navigator.of(context).pop();
   }
 
   @override
