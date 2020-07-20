@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import './model/transaction.dart';
 import './widgets/new_transaction.dart';
 import './widgets/transaction_list.dart';
@@ -23,7 +22,6 @@ void main() {
             color: Colors.black,
           )
             ),
-
       ),
     ),
     debugShowCheckedModeBanner: false,
@@ -38,6 +36,8 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final List<Transaction> _userTransactions = [
+   /* Transaction(
+        id: "t1", title: "New Shoes", amount: 69.99, date: DateTime.now()),
     Transaction(
         id: "t1", title: "New Shoes", amount: 69.99, date: DateTime.now()),
     Transaction(
@@ -53,7 +53,7 @@ class _MyHomePageState extends State<MyHomePage> {
       title: "Weekly Groceries",
       amount: 16.53,
       date: DateTime.now(),
-    ),
+    ),*/
   ];
 
   void _addNewTransaction(String txTitle, double txAmount) {
@@ -94,20 +94,18 @@ class _MyHomePageState extends State<MyHomePage> {
           )
         ],
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: <Widget>[
-            Container(
-              width: double.infinity,
-              child: Card(
-                child: Text("Chart"),
-                color: Colors.blue,
-                elevation: 5,
-              ),
+      body: Column(
+        children: <Widget>[
+          Container(
+            width: double.infinity,
+            child: Card(
+              child: Text("Chart"),
+              color: Colors.blue,
+              elevation: 5,
             ),
-            TransactionList(_userTransactions),
-          ],
-        ),
+          ),
+          TransactionList(_userTransactions),
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
