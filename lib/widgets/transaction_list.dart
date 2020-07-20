@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import '../model/transaction.dart';
-class TransactionList extends StatelessWidget {
 
+import '../model/transaction.dart';
+
+class TransactionList extends StatelessWidget {
   final List<Transaction> fetchedTransactionList;
 
   TransactionList(this.fetchedTransactionList);
 
   @override
   Widget build(BuildContext context) {
-    return  Column(
+    return Column(
       children: fetchedTransactionList.map((anyVariable) {
         return Card(
           child: Row(
@@ -21,7 +22,7 @@ class TransactionList extends StatelessWidget {
                 ),
                 decoration: BoxDecoration(
                   border: Border.all(
-                    color: Colors.purple,
+                    color: Theme.of(context).primaryColor,
                     width: 2,
                   ),
                 ),
@@ -31,7 +32,7 @@ class TransactionList extends StatelessWidget {
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
-                    color: Colors.purple,
+                    color: Theme.of(context).primaryColor,
                   ),
                 ),
               ),
@@ -46,12 +47,8 @@ class TransactionList extends StatelessWidget {
                     ),
                   ),
                   Text(
-                    DateFormat.yMMMd("en_US")
-                        .add_jm()
-                        .format(anyVariable.date),
-                    style: TextStyle(
-                      color: Colors.grey,
-                    ),
+                    DateFormat.yMMMd("en_US").add_jm().format(anyVariable.date),
+                    style: Theme.of(context).textTheme.subtitle1,
                   )
                 ],
               ),
