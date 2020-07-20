@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../model/transaction.dart';
 import '../widgets/new_transaction.dart';
 import '../widgets/transaction_list.dart';
@@ -36,19 +35,22 @@ class _TransactionStateManageState extends State<TransactionStateManage> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: <Widget>[
-        Container(
-          width: double.infinity,
-          child: Card(
-            child: Text("Chart"),
-            color: Colors.blue,
-            elevation: 5,
+    return SingleChildScrollView(
+      child: Column(
+        children: <Widget>[
+          Container(
+            width: double.infinity,
+            child: Card(
+              child: Text("Chart"),
+              color: Colors.blue,
+              elevation: 5,
+            ),
           ),
-        ),
-        NewTransaction(_addNewTransaction),
-        TransactionList(_userTransactions),
-      ],
+          NewTransaction(_addNewTransaction),
+          TransactionList(_userTransactions),
+
+        ],
+      ),
     );
   }
 }
