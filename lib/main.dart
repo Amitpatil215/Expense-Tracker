@@ -46,6 +46,7 @@ class _MyHomePageState extends State<MyHomePage> {
       amount: 20.01,
       date: DateTime.now(),
     ),
+
   ];
 
   //we only need to pass recent transactions in chart widget
