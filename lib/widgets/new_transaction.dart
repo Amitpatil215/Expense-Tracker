@@ -1,5 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 //this must be stateful (even if we are not calling setState((){}) as it is more about data than UI )
 // otherwise we are unable to input in TextField as our data gets lost
@@ -18,26 +18,50 @@ class NewTransaction extends StatefulWidget {
 }
 
 class _NewTransactionState extends State<NewTransaction> {
-  final titleController = TextEditingController();
+  final _titleController = TextEditingController();
+  final _amountController = TextEditingController();
+  DateTime _selectedDate;
 
-  final amountController = TextEditingController();
-
-  void submitButtonPressed() {
-    final enteredTitle = titleController.text;
-    final enteredAmount = double.parse(amountController.text);
-    if (enteredTitle.isEmpty || enteredAmount <= 0) {
+  void _submitButtonPressed() {
+    if(_amountController.text.isEmpty){
+     //if user haven't entered amount
+      return;
+    }
+    final _enteredTitle = _titleController.text;
+    final _enteredAmount = double.parse(_amountController.text);
+    if (_enteredTitle.isEmpty || _enteredAmount <= 0 || _selectedDate==null) {
       return;
     }
 
     //widget. is added to use method in state class (_NewTransactionState) from widget class (NewTransaction)
     //and of course it is only available in state class
     widget.addTransactionButton(
-      enteredTitle,
-      enteredAmount,
+      _enteredTitle,
+      _enteredAmount,
+      _selectedDate,
     );
 
     //for closing model sheet once we pressed "Add Transaction" button
     Navigator.of(context).pop();
+  }
+
+  //date picker IconButton
+  void _presentDatePicker() {
+    showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2019),
+      lastDate: DateTime.now(),
+    ).then((pickedDateValue) {
+      //pickedDateValue is any Variable with is returned by future
+      if (pickedDateValue == null) {
+        return;
+      } else {
+        setState(() {
+          _selectedDate = pickedDateValue;
+        });
+      }
+    });
   }
 
   @override
@@ -50,28 +74,57 @@ class _NewTransactionState extends State<NewTransaction> {
           crossAxisAlignment: CrossAxisAlignment.end,
           children: <Widget>[
             TextField(
-              decoration: InputDecoration(labelText: "Title",labelStyle: TextStyle(fontWeight: FontWeight.bold)),
-              controller: titleController,
-              onSubmitted: (_) => submitButtonPressed(),
+              decoration: InputDecoration(
+                  labelText: "Title",
+                  labelStyle: TextStyle(fontWeight: FontWeight.bold)),
+              controller: _titleController,
+              onSubmitted: (_) => _submitButtonPressed(),
               // (_):as onSubmitted passes a string as argument  but we don't wanna use that value it so use this  _
             ),
             TextField(
-              decoration: InputDecoration(labelText: "Amount",labelStyle: TextStyle(fontWeight: FontWeight.bold)),
-              controller: amountController,
+              decoration: InputDecoration(
+                  labelText: "Amount",
+                  labelStyle: TextStyle(fontWeight: FontWeight.bold)),
+              controller: _amountController,
               keyboardType: TextInputType.numberWithOptions(decimal: true),
-              onSubmitted: (_) => submitButtonPressed(),
+              onSubmitted: (_) => _submitButtonPressed(),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Text(
+                  _selectedDate == null
+                      ? "Choose a Date"
+                      : DateFormat.yMd().format(_selectedDate),
+                  style: TextStyle(
+                      //fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                      color: Colors.purple),
+                ),
+                IconButton(
+                  icon: Icon(Icons.calendar_today),
+                  onPressed: _presentDatePicker,
+                  padding: EdgeInsets.all(20),
+                  highlightColor: Colors.purple.shade200,
+                )
+              ],
             ),
             SizedBox(
               height: 10,
             ),
             Container(
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30),
-                color: Colors.amber.shade300
-              ),
+                  borderRadius: BorderRadius.circular(30),
+                  color: Colors.amber.shade300),
               child: FlatButton(
-                onPressed: submitButtonPressed,
-                child: Text("Add Transaction",style: TextStyle(color: Colors.black),),
+                onPressed: _submitButtonPressed,
+                child: Text(
+                  "Add Transaction",
+                  style: TextStyle(color: Colors.black),
+                ),
                 textColor: Colors.purple,
               ),
             )
