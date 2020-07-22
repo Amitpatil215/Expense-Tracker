@@ -3,8 +3,8 @@ import 'package:flutter/foundation.dart';
 class Transaction {
   final String id; //unique identity for an transaction
   final String title; //For what purpose user spent money or description
-  final double amount; //money user spent
-  final DateTime date; //Date when transaction happened
+  final double amount;
+  final DateTime date;
   //all values are final : there value never changes once transaction is created
 
   //constructor with named arguments

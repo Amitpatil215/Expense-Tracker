@@ -14,15 +14,16 @@ void main() {
       fontFamily: 'Quicksand',
       appBarTheme: AppBarTheme(
         textTheme: ThemeData.light().textTheme.copyWith(
-            headline6: TextStyle(
-              fontFamily: 'OpenSens',
-              fontSize: 21,
+              headline6: TextStyle(
+                fontFamily: 'OpenSens',
+                fontSize: 21,
+              ),
+              subtitle1: TextStyle(
+                fontFamily: 'OpenSens',
+                fontSize: 15,
+                color: Colors.black,
+              ),
             ),
-            subtitle1: TextStyle(
-              fontFamily: 'OpenSens',
-              fontSize: 15,
-              color: Colors.black,
-            )),
       ),
     ),
     debugShowCheckedModeBanner: false,
@@ -32,28 +33,36 @@ void main() {
 
 class MyHomePage extends StatefulWidget {
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _MyHomePageState createState() {
+    return _MyHomePageState();
+  }
 }
 
 class _MyHomePageState extends State<MyHomePage> {
   final List<Transaction> _userTransactions = [
-
     Transaction(
-        id: "t1", title: "New Shoes", amount: 10.01, date: DateTime.now()),
+      id: "t1",
+      title: "New Shoes",
+      amount: 10.01,
+      date: DateTime.now(),
+    ),
     Transaction(
       id: "t2",
       title: "Weekly Groceries",
       amount: 20.01,
-      date: DateTime.now(),
+      date: DateTime(2020, 7, 20),
     ),
-
   ];
 
   //we only need to pass recent transactions in chart widget
   //so creating getter
   List<Transaction> get _recentTransactions {
     return _userTransactions.where((anyVar) {
-      return anyVar.date.isAfter(DateTime.now().subtract(Duration(days:7)));
+      return anyVar.date.isAfter(
+        DateTime.now().subtract(
+          Duration(days: 7),
+        ),
+      );
     }).toList();
   }
 
@@ -99,7 +108,11 @@ class _MyHomePageState extends State<MyHomePage> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Chart(_recentTransactions),
-          TransactionList(_userTransactions),
+          Column(
+            children: <Widget>[
+              TransactionList(_userTransactions),
+            ],
+          ),
         ],
       ),
       floatingActionButton: FloatingActionButton(

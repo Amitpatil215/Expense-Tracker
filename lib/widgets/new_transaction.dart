@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 //this must be stateful (even if we are not calling setState((){}) as it is more about data than UI )
@@ -49,21 +50,30 @@ class _NewTransactionState extends State<NewTransaction> {
           crossAxisAlignment: CrossAxisAlignment.end,
           children: <Widget>[
             TextField(
-              decoration: InputDecoration(labelText: "Title"),
+              decoration: InputDecoration(labelText: "Title",labelStyle: TextStyle(fontWeight: FontWeight.bold)),
               controller: titleController,
               onSubmitted: (_) => submitButtonPressed(),
               // (_):as onSubmitted passes a string as argument  but we don't wanna use that value it so use this  _
             ),
             TextField(
-              decoration: InputDecoration(labelText: "Amount"),
+              decoration: InputDecoration(labelText: "Amount",labelStyle: TextStyle(fontWeight: FontWeight.bold)),
               controller: amountController,
               keyboardType: TextInputType.numberWithOptions(decimal: true),
               onSubmitted: (_) => submitButtonPressed(),
             ),
-            FlatButton(
-              onPressed: submitButtonPressed,
-              child: Text("Add Transaction"),
-              textColor: Colors.purple,
+            SizedBox(
+              height: 10,
+            ),
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(30),
+                color: Colors.amber.shade300
+              ),
+              child: FlatButton(
+                onPressed: submitButtonPressed,
+                child: Text("Add Transaction",style: TextStyle(color: Colors.black),),
+                textColor: Colors.purple,
+              ),
             )
           ],
         ),

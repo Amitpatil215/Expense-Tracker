@@ -10,8 +10,9 @@ class Chart extends StatelessWidget {
 
   //getter for a require list of transactions
   List<Map<String, Object>> get groupedTransactionValues {
+
     return List.generate(7, (index) {
-      //subtracting by index gives us a past week as today-5=5th day from now
+      //subtracting by index gives us a last week as today-5=5th day from now
       final weekDay = DateTime.now().subtract(
         Duration(days: index),
       );
@@ -45,7 +46,7 @@ class Chart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      elevation: 10,
+      elevation: 30,
       margin: EdgeInsets.all(20),
       color: Colors.amber,
       child: Row(
