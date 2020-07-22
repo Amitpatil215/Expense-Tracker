@@ -11,6 +11,7 @@ void main() {
     theme: ThemeData(
       primarySwatch: Colors.purple,
       accentColor: Colors.amber,
+      errorColor: Colors.redAccent,
       fontFamily: 'Quicksand',
       appBarTheme: AppBarTheme(
         textTheme: ThemeData.light().textTheme.copyWith(
@@ -66,7 +67,8 @@ class _MyHomePageState extends State<MyHomePage> {
     }).toList();
   }
 
-  void _addNewTransaction(String txTitle, double txAmount , DateTime selectedDate) {
+  void _addNewTransaction(
+      String txTitle, double txAmount, DateTime selectedDate) {
     final newTx = Transaction(
       id: DateTime.now().toString(),
       title: txTitle,
@@ -76,6 +78,18 @@ class _MyHomePageState extends State<MyHomePage> {
 
     setState(() {
       _userTransactions.add(newTx);
+    });
+  }
+
+  void _deleteTransaction(String txId) {
+    setState(() {
+      _userTransactions.removeWhere((anyVar) {
+        /* if(anyVar.id==txId){
+          return true;
+        }
+        return false;*/
+        return anyVar.id == txId;
+      });
     });
   }
 
@@ -110,7 +124,7 @@ class _MyHomePageState extends State<MyHomePage> {
           Chart(_recentTransactions),
           Column(
             children: <Widget>[
-              TransactionList(_userTransactions),
+              TransactionList(_userTransactions, _deleteTransaction),
             ],
           ),
         ],

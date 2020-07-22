@@ -8,8 +8,9 @@ import '../model/transaction.dart';
 
 class TransactionList extends StatelessWidget {
   final List<Transaction> fetchedTransactionList;
+  final Function deleteItem;
 
-  TransactionList(this.fetchedTransactionList);
+  TransactionList(this.fetchedTransactionList, this.deleteItem);
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +46,7 @@ class TransactionList extends StatelessWidget {
                       //Amount Box
                       Container(
                         height: 50,
-                        width:80,
+                        width: 80,
                         margin: EdgeInsets.symmetric(
                           vertical: 20,
                           horizontal: 30,
@@ -59,7 +60,6 @@ class TransactionList extends StatelessWidget {
                         ),
                         padding: EdgeInsets.all(7),
                         child: FittedBox(
-
                           child: Text(
                             "₹ ${fetchedTransactionList[index].amount.toStringAsFixed(2)}",
                             style: TextStyle(
@@ -88,6 +88,17 @@ class TransactionList extends StatelessWidget {
                           )
                         ],
                       ),
+                      Container(
+                        margin: EdgeInsets.only(left: 50),
+                        child: IconButton(
+                          icon: Icon(Icons.delete),
+                          onPressed: () {
+                            deleteItem(fetchedTransactionList[index].id);
+                          },
+                          color: Theme.of(context).errorColor,
+                          alignment: Alignment.center,
+                        ),
+                      )
                     ],
                   ),
                 );
