@@ -69,12 +69,15 @@ class _NewTransactionState extends State<NewTransaction> {
     return Card(
       elevation: 5,
       child: Container(
+        height: MediaQuery.of(context).size.height * 0.99,
         padding: EdgeInsets.all(10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: <Widget>[
             TextField(
               decoration: InputDecoration(
+                  icon: Icon(Icons.title),
+                  isDense: true,
                   labelText: "Title",
                   labelStyle: TextStyle(fontWeight: FontWeight.bold)),
               controller: _titleController,
@@ -83,6 +86,8 @@ class _NewTransactionState extends State<NewTransaction> {
             ),
             TextField(
               decoration: InputDecoration(
+                  icon: Icon(Icons.attach_money),
+                  isDense: true,
                   labelText: "Amount",
                   labelStyle: TextStyle(fontWeight: FontWeight.bold)),
               controller: _amountController,
