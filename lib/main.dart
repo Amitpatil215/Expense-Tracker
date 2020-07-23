@@ -84,10 +84,11 @@ class _MyHomePageState extends State<MyHomePage> {
   void _deleteTransaction(String txId) {
     setState(() {
       _userTransactions.removeWhere((anyVar) {
-        /* if(anyVar.id==txId){
+        /*if(anyVar.id==txId){
           return true;
         }
         return false;*/
+        // "OR"
         return anyVar.id == txId;
       });
     });
@@ -97,7 +98,7 @@ class _MyHomePageState extends State<MyHomePage> {
     showModalBottomSheet(
       context: ctx,
       builder: (_) {
-        return NewTransaction(_addNewTransaction);
+        return SingleChildScrollView(child: NewTransaction(_addNewTransaction));
       },
     );
   }
@@ -118,8 +119,7 @@ class _MyHomePageState extends State<MyHomePage> {
           )
         ],
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+      body: ListView(
         children: <Widget>[
           Chart(_recentTransactions),
           Column(
