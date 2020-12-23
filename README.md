@@ -1,4 +1,5 @@
-# Expense Tracker
+# [Expense Tracker](https://amitpatil215.github.io/Expense-Tracker/#/)
+For live demo click [here](https://amitpatil215.github.io/Expense-Tracker/#/)
 
 Smartly manage all your expenses!
 
